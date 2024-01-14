@@ -26,7 +26,7 @@ mkdir ${k230_bin}/bytetrack_data/output
 cp -a ../../big/kmodel/ai_poc/utils/* ${k230_bin}
 cp -a shell/* ${k230_bin}
 
-/opt/toolchain/Xuantie-900-gcc-linux-5.10.4-glibc-x86_64-V2.6.0/bin/riscv64-unknown-linux-gnu-g++ -O3 llamac/llama_run.cc -o out/llama_run -lm
+/opt/toolchain/Xuantie-900-gcc-linux-5.10.4-glibc-x86_64-V2.8.0/bin/riscv64-unknown-linux-gnu-g++ -O3 llamac/llama_run.cc -o out/llama_run -lm
 
 if [ -f out/bin/face_detection.elf ]; then
       cp out/bin/face_detection.elf ${k230_bin}

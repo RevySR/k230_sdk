@@ -14,6 +14,7 @@ UNITTEST_SRC_PATH=src/big/unittest
 
 #DOWNLOAD_URL=https://ai.b-bug.org/k230
 DOWNLOAD_URL?=https://kendryte-download.canaan-creative.com/k230
+XUANTIE_TOOLCHAINS_URL=https://occ-oss-prod.oss-cn-hangzhou.aliyuncs.com/resource//1698113812618
 STATUS := $(shell curl --output /dev/null --silent --head --fail https://ai.b-bug.org/k230/ && echo $$?)
 
 ifeq ($(STATUS),0)
@@ -22,7 +23,7 @@ endif
 
 ifeq ($(NATIVE_BUILD),1)
 RTT_TOOLCHAIN_URL = $(DOWNLOAD_URL)/toolchain/riscv64-unknown-linux-musl-rv64imafdcv-lp64d-20230420.tar.bz2
-LINUX_TOOLCHAIN_URL = $(DOWNLOAD_URL)/toolchain/Xuantie-900-gcc-linux-5.10.4-glibc-x86_64-V2.6.0.tar.bz2
+LINUX_TOOLCHAIN_URL = $(XUANTIE_TOOLCHAINS_URL)/Xuantie-900-gcc-linux-5.10.4-glibc-x86_64-V2.8.0-20231018.tar.gz
 endif
 
 export K230_SDK_ROOT := $(shell pwd)
@@ -96,6 +97,7 @@ extract_toolchain: download_toolchain
 	if [ ! -f toolchain/.toolchain_ready ];then \
 	echo "extract toolchain"; \
 	for file in $(shell find ./toolchain -name "*.bz2"); do echo $$file;tar jxf $$file -C $(K230_SDK_ROOT)/toolchain; done; \
+        for file in $(shell find ./toolchain -name "*.gz"); do echo $$file;tar xf $$file -C $(K230_SDK_ROOT)/toolchain; done; \
 	fi;
 
 .PHONY: prepare_toolchain
